@@ -1,9 +1,9 @@
 from flask import Flask, request, jsonify
 import swisseph as swe
 import datetime
+import os
 
 app = Flask(__name__)
-
 swe.set_ephe_path('')  # Nutzt Standardpfad für Ephemeriden
 
 @app.route('/astro', methods=['POST'])
@@ -29,4 +29,5 @@ def calculate():
     })
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    port = int(os.environ.get("PORT", 5000))
+    app.run(host="0.0.0.0", port=port, debug=True)
